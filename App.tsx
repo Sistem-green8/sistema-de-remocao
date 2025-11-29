@@ -219,7 +219,7 @@ function App() {
               <label className="block text-sm font-medium text-slate-700 mb-1">Usuário</label>
               <input 
                 type="text" 
-                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-white"
                 value={loginForm.username}
                 onChange={e => setLoginForm({...loginForm, username: e.target.value})}
               />
@@ -228,7 +228,7 @@ function App() {
               <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
               <input 
                 type="password" 
-                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-white"
                 value={loginForm.password}
                 onChange={e => setLoginForm({...loginForm, password: e.target.value})}
               />
@@ -236,7 +236,16 @@ function App() {
             <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-indigo-200">
               Entrar no Sistema
             </button>
-            <div className="text-center text-xs text-slate-400 mt-4">Padrão: admin / admin</div>
+            <div className="text-center mt-4">
+              <button 
+                type="button" 
+                onClick={() => alert('Por favor, contate o administrador do sistema para redefinir sua senha.')}
+                className="text-sm text-indigo-600 hover:underline"
+              >
+                Esqueci minha senha
+              </button>
+            </div>
+            <div className="text-center text-xs text-slate-400 mt-2">Padrão: admin / admin</div>
           </form>
         </div>
       </div>

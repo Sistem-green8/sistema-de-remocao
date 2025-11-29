@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, UserProfile } from '../types';
 import { UserCog, Plus, Trash2, Shield, Edit } from 'lucide-react';
