@@ -1,16 +1,17 @@
 
 import React, { useState } from 'react';
 import { Remocao } from '../types';
-import { Search, Filter, Eye, Printer, Edit, MapPin, User, Clock, Ambulance } from 'lucide-react';
+import { Search, Filter, Eye, Printer, Edit, MapPin, User, Calendar } from 'lucide-react';
 import { formatBRL } from '../utils/pricing';
 
 interface TransportListProps {
   remocoes: Remocao[];
   onView: (id: number) => void;
   onEdit: (remocao: Remocao) => void;
+  onShowInCalendar: (id: number) => void;
 }
 
-const TransportList: React.FC<TransportListProps> = ({ remocoes, onView, onEdit }) => {
+const TransportList: React.FC<TransportListProps> = ({ remocoes, onView, onEdit, onShowInCalendar }) => {
   const [term, setTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('Todos');
 
@@ -242,6 +243,13 @@ const TransportList: React.FC<TransportListProps> = ({ remocoes, onView, onEdit 
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div className="flex justify-end gap-2">
+                    <button 
+                      onClick={() => onShowInCalendar(r.id)}
+                      className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors"
+                      title="Ver no Calendário"
+                    >
+                      <Calendar className="w-4 h-4" />
+                    </button>
                     <button 
                       onClick={() => onView(r.id)}
                       className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"

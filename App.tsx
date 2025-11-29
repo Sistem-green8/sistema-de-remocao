@@ -48,6 +48,8 @@ function App() {
   const [viewingRemoval, setViewingRemoval] = useState<Remocao | null>(null);
   const [editingEvent, setEditingEvent] = useState<Evento | null>(null);
   const [completingEvent, setCompletingEvent] = useState<Evento | null>(null);
+  
+  const [highlightedEventId, setHighlightedEventId] = useState<number | null>(null);
 
   // Handlers
   const handleLogin = (e: React.FormEvent) => {
@@ -130,6 +132,11 @@ function App() {
       setViewingRemoval(found);
       setIsViewModalOpen(true);
     }
+  };
+
+  const handleShowInCalendar = (id: number) => {
+    setHighlightedEventId(id);
+    setCurrentPage('calendario');
   };
 
   const handleSaveNewEvent = (savedEvent: Evento) => {
@@ -316,6 +323,7 @@ function App() {
             remocoes={remocoes} 
             onView={handleViewRemoval}
             onEdit={handleEditRemoval}
+            onShowInCalendar={handleShowInCalendar}
           />
         )}
 
@@ -337,7 +345,7 @@ function App() {
         )}
 
         {currentPage === 'calendario' && (
-          <CalendarView remocoes={remocoes} />
+          <CalendarView remocoes={remocoes} highlightedEventId={highlightedEventId} />
         )}
 
         {currentPage === 'financeiro' && (
