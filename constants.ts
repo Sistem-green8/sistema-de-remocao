@@ -56,6 +56,70 @@ export const MOCK_CONVENIOS: Convenio[] = [
         "SIV": { "Ida": { comKm: 250.00, semKm: 260.00 }, "Ida e Volta": { comKm: 480.00, semKm: 480.00 } }
       }
     }
+  },
+  {
+    id: 3,
+    nome: "HOME LIFE",
+    ativo: true,
+    tabelaPrecos: {
+      FRANQUIA_MINUTOS: 0,
+      KM: { "Básica": 3.50, "UTI - Adulto": 7.38, "UTI - Pediátrica": 7.38, "SIV": 4.20 },
+      HORA_PARADA: { "Básica": 90.00, "UTI - Adulto": 160.00, "UTI - Pediátrica": 160.00 },
+      TAXA_SAIDA: {
+        "Básica": { "Ida": { comKm: 250.00, semKm: 250.00 }, "Ida e Volta": { comKm: 250.00, semKm: 380.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 400.70, semKm: 800.00 }, "Ida e Volta": { comKm: 400.70, semKm: 800.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 400.70, semKm: 800.00 }, "Ida e Volta": { comKm: 400.70, semKm: 800.00 } },
+        "SIV": { "Ida": { comKm: 350.00, semKm: 350.00 }, "Ida e Volta": { comKm: 350.00, semKm: 480.00 } }
+      }
+    }
+  },
+  {
+    id: 4,
+    nome: "HOSPITAL FORNECEDOR DE CANA",
+    ativo: true,
+    tabelaPrecos: {
+      FRANQUIA_MINUTOS: 0,
+      KM: { "Básica": 3.50, "UTI - Adulto": 7.38, "UTI - Pediátrica": 8.29, "SIV": 3.50 },
+      HORA_PARADA: { "Básica": 80.00, "UTI - Adulto": 143.00, "UTI - Pediátrica": 185.90 },
+      TAXA_SAIDA: {
+        "Básica": { "Ida": { comKm: 170.00, semKm: 170.00 }, "Ida e Volta": { comKm: 170.00, semKm: 330.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
+        "SIV": { "Ida": { comKm: 170.00, semKm: 170.00 }, "Ida e Volta": { comKm: 170.00, semKm: 330.00 } }
+      }
+    }
+  },
+  {
+    id: 5,
+    nome: "SANTA CASA DE LIMEIRA",
+    ativo: true,
+    tabelaPrecos: {
+      FRANQUIA_MINUTOS: 0,
+      KM: { "Básica": 3.50, "UTI - Adulto": 7.38, "UTI - Pediátrica": 8.29, "SIV": 3.50 },
+      HORA_PARADA: { "Básica": 65.00, "UTI - Adulto": 143.00, "UTI - Pediátrica": 165.90 },
+      TAXA_SAIDA: {
+        "Básica": { "Ida": { comKm: 160.00, semKm: 160.00 }, "Ida e Volta": { comKm: 160.00, semKm: 315.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
+        "SIV": { "Ida": { comKm: 160.00, semKm: 160.00 }, "Ida e Volta": { comKm: 160.00, semKm: 315.00 } }
+      }
+    }
+  },
+  {
+    id: 6,
+    nome: "PRONEP",
+    ativo: true,
+    tabelaPrecos: {
+      FRANQUIA_MINUTOS: 60,
+      KM: { "Básica": 2.70, "UTI - Adulto": 7.00, "UTI - Pediátrica": 7.00, "SIV": 2.70 },
+      HORA_PARADA: { "Básica": 100.00, "UTI - Adulto": 150.00, "UTI - Pediátrica": 150.00 },
+      TAXA_SAIDA: {
+        "Básica": { "Ida": { comKm: 150.00, semKm: 150.00 }, "Ida e Volta": { comKm: 225.00, semKm: 225.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 350.00, semKm: 350.00 }, "Ida e Volta": { comKm: 525.00, semKm: 525.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 350.00, semKm: 350.00 }, "Ida e Volta": { comKm: 525.00, semKm: 525.00 } },
+        "SIV": { "Ida": { comKm: 150.00, semKm: 150.00 }, "Ida e Volta": { comKm: 225.00, semKm: 225.00 } }
+      }
+    }
   }
 ];
 
