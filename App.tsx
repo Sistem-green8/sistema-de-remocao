@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -15,6 +14,7 @@ import UserManagement from './components/UserManagement';
 import Orcamentos from './components/Orcamentos';
 import NewOrcamentoModal from './components/NewOrcamentoModal';
 import RemovalDetailsModal from './components/RemovalDetailsModal';
+import ReportGenerator from './components/ReportGenerator'; // Import
 import { Remocao, Lancamento, StatusRemocao, Convenio, Prestador, Evento, User, Orcamento, StatusOrcamento } from './types';
 import { MOCK_REMOCOES, MOCK_LANCAMENTOS, MOCK_CONVENIOS, MOCK_PRESTADORES, MOCK_EVENTOS, MOCK_USERS, MOCK_ORCAMENTOS } from './constants';
 import { calcularPreco } from './utils/pricing';
@@ -267,11 +267,12 @@ function App() {
                currentPage === 'convenios' ? 'Convênios e Preços' :
                currentPage === 'prestadores' ? 'Base de Prestadores' :
                currentPage === 'usuarios' ? 'Gestão de Usuários' :
+               currentPage === 'relatorios' ? 'Relatórios Gerenciais' :
                'Visão Geral'}
             </h1>
             <p className="text-slate-500 text-sm mt-1">Gerencie suas operações com eficiência.</p>
           </div>
-          {currentPage !== 'dashboard' && currentPage !== 'financeiro' && currentPage !== 'convenios' && currentPage !== 'prestadores' && currentPage !== 'usuarios' && (
+          {currentPage !== 'dashboard' && currentPage !== 'financeiro' && currentPage !== 'convenios' && currentPage !== 'prestadores' && currentPage !== 'usuarios' && currentPage !== 'relatorios' && (
             <button 
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-md shadow-indigo-200 flex items-center gap-2"
               onClick={openSpecificModal}
@@ -331,18 +332,7 @@ function App() {
         )}
         
         {currentPage === 'relatorios' && (
-          <div className="bg-white p-12 rounded-xl text-center border border-slate-200">
-            <div className="bg-indigo-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-slate-800">Relatórios Avançados</h3>
-            <p className="text-slate-500 mt-2">Selecione filtros de data e convênio para gerar PDF.</p>
-            <button className="mt-6 px-6 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 font-medium">
-              Exportar Demonstração
-            </button>
-          </div>
+          <ReportGenerator remocoes={remocoes} convenios={convenios} />
         )}
 
         {currentPage === 'convenios' && (
