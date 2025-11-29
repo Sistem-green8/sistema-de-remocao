@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -14,7 +15,8 @@ import UserManagement from './components/UserManagement';
 import Orcamentos from './components/Orcamentos';
 import NewOrcamentoModal from './components/NewOrcamentoModal';
 import RemovalDetailsModal from './components/RemovalDetailsModal';
-import ReportGenerator from './components/ReportGenerator'; // Import
+import ReportGenerator from './components/ReportGenerator';
+import CompleteEventModal from './components/CompleteEventModal'; // Import
 import { Remocao, Lancamento, StatusRemocao, Convenio, Prestador, Evento, User, Orcamento, StatusOrcamento } from './types';
 import { MOCK_REMOCOES, MOCK_LANCAMENTOS, MOCK_CONVENIOS, MOCK_PRESTADORES, MOCK_EVENTOS, MOCK_USERS, MOCK_ORCAMENTOS } from './constants';
 import { calcularPreco } from './utils/pricing';
@@ -38,12 +40,14 @@ function App() {
   const [isNewEventModalOpen, setIsNewEventModalOpen] = useState(false);
   const [isNewOrcamentoModalOpen, setIsNewOrcamentoModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isCompleteEventModalOpen, setIsCompleteEventModalOpen] = useState(false);
   
   // State for Editing/Viewing
   const [editingOrcamento, setEditingOrcamento] = useState<Orcamento | null>(null);
   const [editingRemoval, setEditingRemoval] = useState<Remocao | null>(null);
   const [viewingRemoval, setViewingRemoval] = useState<Remocao | null>(null);
   const [editingEvent, setEditingEvent] = useState<Evento | null>(null);
+  const [completingEvent, setCompletingEvent] = useState<Evento | null>(null);
 
   // Handlers
   const handleLogin = (e: React.FormEvent) => {
@@ -145,12 +149,16 @@ function App() {
     setIsNewEventModalOpen(true);
   };
 
-  const handleCompleteEvent = (id: number, valor: number) => {
-    // 1. Update Event
-    const eventToComplete = eventos.find(e => e.id === id);
-    if (!eventToComplete) return;
+  const handleOpenCompleteEventModal = (evento: Evento) => {
+    setCompletingEvent(evento);
+    setIsCompleteEventModalOpen(true);
+  };
 
-    setEventos(prev => prev.map(e => e.id === id ? { ...e, status: 'Concluído', valor: valor } : e));
+  const handleCompleteEventSave = (valor: number) => {
+    if (!completingEvent) return;
+
+    // 1. Update Event
+    setEventos(prev => prev.map(e => e.id === completingEvent.id ? { ...e, status: 'Concluído', valor: valor } : e));
 
     // 2. Add Revenue Record to Finance
     const newLancamento: Lancamento = {
@@ -158,12 +166,14 @@ function App() {
       data: new Date().toISOString().split('T')[0],
       tipo: 'Receita',
       categoria: 'Evento',
-      descricao: `Receita Evento: ${eventToComplete.nome}`,
+      descricao: `Receita Evento: ${completingEvent.nome}`,
       valor: valor,
-      statusPgto: 'A Receber' // or 'Pendente' depending on logic preference
+      statusPgto: 'A Receber' 
     };
     
     setLancamentos(prev => [...prev, newLancamento]);
+    setIsCompleteEventModalOpen(false);
+    setCompletingEvent(null);
   };
 
   const handleSaveOrcamento = (savedOrcamento: Orcamento) => {
@@ -314,7 +324,7 @@ function App() {
             eventos={eventos} 
             prestadores={prestadores} 
             onEdit={handleEditEvent}
-            onComplete={handleCompleteEvent}
+            onOpenCompleteModal={handleOpenCompleteEventModal}
           />
         )}
         
@@ -384,6 +394,13 @@ function App() {
         isOpen={isViewModalOpen}
         onClose={() => setIsViewModalOpen(false)}
         data={viewingRemoval}
+      />
+
+      <CompleteEventModal 
+        isOpen={isCompleteEventModalOpen}
+        onClose={() => { setIsCompleteEventModalOpen(false); setCompletingEvent(null); }}
+        onSave={handleCompleteEventSave}
+        eventName={completingEvent?.nome || ''}
       />
     </div>
   );

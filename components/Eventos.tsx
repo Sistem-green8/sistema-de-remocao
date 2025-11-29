@@ -8,27 +8,15 @@ interface EventosProps {
   eventos: Evento[];
   prestadores: Prestador[];
   onEdit: (evento: Evento) => void;
-  onComplete: (id: number, valor: number) => void;
+  onOpenCompleteModal: (evento: Evento) => void;
 }
 
-const Eventos: React.FC<EventosProps> = ({ eventos, prestadores, onEdit, onComplete }) => {
+const Eventos: React.FC<EventosProps> = ({ eventos, prestadores, onEdit, onOpenCompleteModal }) => {
   const getPrestadoresNames = (ids: number[]) => {
     return ids.map(id => {
       const p = prestadores.find(prest => prest.id === id);
       return p ? p.nome : 'Desconhecido';
     });
-  };
-
-  const handleCompleteClick = (evento: Evento) => {
-    const valorStr = prompt(`Informe o valor final a receber pelo evento "${evento.nome}":`, "0");
-    if (valorStr !== null) {
-      const valor = parseFloat(valorStr);
-      if (!isNaN(valor) && valor >= 0) {
-        onComplete(evento.id, valor);
-      } else {
-        alert("Valor inválido.");
-      }
-    }
   };
 
   return (
@@ -112,7 +100,7 @@ const Eventos: React.FC<EventosProps> = ({ eventos, prestadores, onEdit, onCompl
                   
                   {!isConcluido && (
                     <button 
-                      onClick={() => handleCompleteClick(evento)}
+                      onClick={() => onOpenCompleteModal(evento)}
                       className="p-1.5 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded transition-colors flex items-center gap-1 text-xs font-medium"
                     >
                       <DollarSign className="w-4 h-4" /> Concluir

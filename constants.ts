@@ -35,9 +35,9 @@ export const MOCK_CONVENIOS: Convenio[] = [
       HORA_PARADA: { "Básica": 85.00, "UTI - Adulto": 143.00, "UTI - Pediátrica": 165.90 },
       TAXA_SAIDA: {
         "Básica": { "Ida": { comKm: 250.00, semKm: 250.00 }, "Ida e Volta": { comKm: 250.00, semKm: 430.00 } },
-        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
-        "UTI - Pediátrica": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
-        "SIV": { "Ida": { comKm: 250.00, semKm: 250.00 }, "Ida e Volta": { comKm: 430.00, semKm: 430.00 } }
+        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } }, // Ida e Volta sem KM corrigido para 750 no OCR pag 1, mas pag 2 diz 1050 para I/V Nao. Usando Pag 1 Tabela Taxa Saida. Correction: PDF Pag 1 table says "UTI - Adulto Ida e Volta Não 1050,00"
+        "UTI - Pediátrica": { "Ida": { comKm: 450.00, semKm: 480.00 }, "Ida e Volta": { comKm: 450.00, semKm: 1250.00 } },
+        "SIV": { "Ida": { comKm: 250.00, semKm: 250.00 }, "Ida e Volta": { comKm: 250.00, semKm: 430.00 } }
       }
     }
   },
@@ -51,9 +51,9 @@ export const MOCK_CONVENIOS: Convenio[] = [
       HORA_PARADA: { "Básica": 95.00, "UTI - Adulto": 183.00, "UTI - Pediátrica": 195.90 },
       TAXA_SAIDA: {
         "Básica": { "Ida": { comKm: 250.00, semKm: 260.00 }, "Ida e Volta": { comKm: 250.00, semKm: 480.00 } },
-        "UTI - Adulto": { "Ida": { comKm: 476.70, semKm: 900.00 }, "Ida e Volta": { comKm: 476.70, semKm: 900.00 } },
-        "UTI - Pediátrica": { "Ida": { comKm: 476.70, semKm: 900.00 }, "Ida e Volta": { comKm: 476.70, semKm: 900.00 } },
-        "SIV": { "Ida": { comKm: 250.00, semKm: 260.00 }, "Ida e Volta": { comKm: 480.00, semKm: 480.00 } }
+        "UTI - Adulto": { "Ida": { comKm: 476.70, semKm: 900.00 }, "Ida e Volta": { comKm: 476.70, semKm: 1250.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 450.00, semKm: 1040.00 }, "Ida e Volta": { comKm: 450.00, semKm: 1420.00 } },
+        "SIV": { "Ida": { comKm: 250.00, semKm: 260.00 }, "Ida e Volta": { comKm: 250.00, semKm: 480.00 } }
       }
     }
   },
@@ -67,8 +67,8 @@ export const MOCK_CONVENIOS: Convenio[] = [
       HORA_PARADA: { "Básica": 90.00, "UTI - Adulto": 160.00, "UTI - Pediátrica": 160.00 },
       TAXA_SAIDA: {
         "Básica": { "Ida": { comKm: 250.00, semKm: 250.00 }, "Ida e Volta": { comKm: 250.00, semKm: 380.00 } },
-        "UTI - Adulto": { "Ida": { comKm: 400.70, semKm: 800.00 }, "Ida e Volta": { comKm: 400.70, semKm: 800.00 } },
-        "UTI - Pediátrica": { "Ida": { comKm: 400.70, semKm: 800.00 }, "Ida e Volta": { comKm: 400.70, semKm: 800.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 400.70, semKm: 800.00 }, "Ida e Volta": { comKm: 400.70, semKm: 1020.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 400.70, semKm: 800.00 }, "Ida e Volta": { comKm: 400.70, semKm: 1020.00 } },
         "SIV": { "Ida": { comKm: 350.00, semKm: 350.00 }, "Ida e Volta": { comKm: 350.00, semKm: 480.00 } }
       }
     }
@@ -83,8 +83,8 @@ export const MOCK_CONVENIOS: Convenio[] = [
       HORA_PARADA: { "Básica": 80.00, "UTI - Adulto": 143.00, "UTI - Pediátrica": 185.90 },
       TAXA_SAIDA: {
         "Básica": { "Ida": { comKm: 170.00, semKm: 170.00 }, "Ida e Volta": { comKm: 170.00, semKm: 330.00 } },
-        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
-        "UTI - Pediátrica": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 1050.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 450.00, semKm: 840.00 }, "Ida e Volta": { comKm: 450.00, semKm: 1250.00 } },
         "SIV": { "Ida": { comKm: 170.00, semKm: 170.00 }, "Ida e Volta": { comKm: 170.00, semKm: 330.00 } }
       }
     }
@@ -99,8 +99,8 @@ export const MOCK_CONVENIOS: Convenio[] = [
       HORA_PARADA: { "Básica": 65.00, "UTI - Adulto": 143.00, "UTI - Pediátrica": 165.90 },
       TAXA_SAIDA: {
         "Básica": { "Ida": { comKm: 160.00, semKm: 160.00 }, "Ida e Volta": { comKm: 160.00, semKm: 315.00 } },
-        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
-        "UTI - Pediátrica": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 750.00 } },
+        "UTI - Adulto": { "Ida": { comKm: 376.70, semKm: 750.00 }, "Ida e Volta": { comKm: 376.70, semKm: 1050.00 } },
+        "UTI - Pediátrica": { "Ida": { comKm: 450.00, semKm: 840.00 }, "Ida e Volta": { comKm: 450.00, semKm: 1250.00 } },
         "SIV": { "Ida": { comKm: 160.00, semKm: 160.00 }, "Ida e Volta": { comKm: 160.00, semKm: 315.00 } }
       }
     }
