@@ -121,6 +121,12 @@ function App() {
     setEditingRemoval(null);
   };
 
+  const handleCancelRemoval = (id: number) => {
+    setRemocoes(prev => prev.map(r => r.id === id ? { ...r, status: 'Cancelada' } : r));
+    setIsNewModalOpen(false);
+    setEditingRemoval(null);
+  };
+
   const handleEditRemoval = (remocao: Remocao) => {
     setEditingRemoval(remocao);
     setIsNewModalOpen(true);
@@ -379,6 +385,7 @@ function App() {
         isOpen={isNewModalOpen}
         onClose={() => { setIsNewModalOpen(false); setEditingRemoval(null); }}
         onSave={handleSaveNewRemoval}
+        onCancel={handleCancelRemoval}
         initialData={editingRemoval}
       />
 

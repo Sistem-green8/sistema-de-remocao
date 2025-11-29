@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { User, UserProfile } from '../types';
-import { UserCog, Plus, Trash2, Shield, Edit } from 'lucide-react';
+import { UserCog, Plus, Trash2, Shield, Edit, Search } from 'lucide-react';
 
 interface UserManagementProps {
   users: User[];
@@ -10,6 +11,7 @@ interface UserManagementProps {
 const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdate }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
   
   const initialFormState = {
     name: '',
@@ -98,16 +100,35 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdate }) => {
     setEditingUser(user);
   };
 
+  const filteredUsers = users.filter(u => 
+    u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    u.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    u.profile.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="space-y-6 animate-in fade-in">
-       <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+       <div className="flex flex-col md:flex-row justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm gap-4">
         <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
           <UserCog className="w-6 h-6 text-indigo-600" />
           Gestão de Usuários
         </h2>
-        <button onClick={handleAddNewClick} className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-2">
-          <Plus className="w-4 h-4" /> Novo Usuário
-        </button>
+        
+        <div className="flex w-full md:w-auto gap-3">
+          <div className="relative flex-1 md:w-64">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input 
+              type="text"
+              placeholder="Buscar usuários..."
+              className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-slate-900"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <button onClick={handleAddNewClick} className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-2 whitespace-nowrap">
+            <Plus className="w-4 h-4" /> <span className="hidden md:inline">Novo Usuário</span><span className="md:hidden">Novo</span>
+          </button>
+        </div>
       </div>
 
       {isFormVisible && (
@@ -169,34 +190,40 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdate }) => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {users.map(u => (
-          <div key={u.id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex justify-between items-start mb-4">
-              <div className={`p-3 rounded-full ${u.profile === 'Administrador' ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-100 text-slate-600'}`}>
-                <Shield className="w-6 h-6" />
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map(u => (
+            <div key={u.id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-start mb-4">
+                <div className={`p-3 rounded-full ${u.profile === 'Administrador' ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-100 text-slate-600'}`}>
+                  <Shield className="w-6 h-6" />
+                </div>
+                <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs font-bold uppercase">{u.profile}</span>
               </div>
-              <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs font-bold uppercase">{u.profile}</span>
+              <h3 className="font-bold text-lg text-slate-800">{u.name}</h3>
+              <p className="text-sm text-slate-500 mt-1">@{u.username}</p>
+              
+              <div className="mt-6 pt-4 border-t border-slate-100 flex justify-end gap-2">
+                 <button 
+                  onClick={() => handleEditClick(u)}
+                  className="text-slate-500 text-sm font-medium hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-transparent hover:border-slate-200 transition-colors flex items-center gap-1"
+                 >
+                   <Edit className="w-4 h-4" /> Editar
+                 </button>
+                 <button 
+                  onClick={() => handleDelete(u.id)}
+                  className="text-red-500 text-sm font-medium hover:bg-red-50 px-3 py-1.5 rounded-lg border border-transparent hover:border-red-100 transition-colors flex items-center gap-1"
+                  disabled={u.username === 'admin'} // Protect default admin
+                 >
+                   <Trash2 className="w-4 h-4" /> Remover
+                 </button>
+              </div>
             </div>
-            <h3 className="font-bold text-lg text-slate-800">{u.name}</h3>
-            <p className="text-sm text-slate-500 mt-1">@{u.username}</p>
-            
-            <div className="mt-6 pt-4 border-t border-slate-100 flex justify-end gap-2">
-               <button 
-                onClick={() => handleEditClick(u)}
-                className="text-slate-500 text-sm font-medium hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-transparent hover:border-slate-200 transition-colors flex items-center gap-1"
-               >
-                 <Edit className="w-4 h-4" /> Editar
-               </button>
-               <button 
-                onClick={() => handleDelete(u.id)}
-                className="text-red-500 text-sm font-medium hover:bg-red-50 px-3 py-1.5 rounded-lg border border-transparent hover:border-red-100 transition-colors flex items-center gap-1"
-                disabled={u.username === 'admin'} // Protect default admin
-               >
-                 <Trash2 className="w-4 h-4" /> Remover
-               </button>
-            </div>
+          ))
+        ) : (
+          <div className="col-span-full text-center py-12 text-slate-500 bg-white rounded-xl border border-slate-200">
+            <p>Nenhum usuário encontrado com os critérios de busca.</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

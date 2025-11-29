@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { X, Save, Calendar, Clock, MapPin, User, Ambulance } from 'lucide-react';
+import { X, Save, Calendar, Clock, MapPin, User, Ambulance, Trash2 } from 'lucide-react';
 import { Remocao, Prioridade, TipoVeiculo, TipoViagem, CategoriaServico } from '../types';
 import { MOCK_CONVENIOS } from '../constants'; // Using mock for dropdown population in this version
 
@@ -8,10 +8,11 @@ interface NewRemovalModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (remocao: Remocao) => void;
+  onCancel?: (id: number) => void;
   initialData?: Remocao | null;
 }
 
-const NewRemovalModal: React.FC<NewRemovalModalProps> = ({ isOpen, onClose, onSave, initialData }) => {
+const NewRemovalModal: React.FC<NewRemovalModalProps> = ({ isOpen, onClose, onSave, onCancel, initialData }) => {
   const [formData, setFormData] = useState({
     dataRemocao: new Date().toISOString().split('T')[0],
     horaOrigem: '',
@@ -109,6 +110,14 @@ const NewRemovalModal: React.FC<NewRemovalModalProps> = ({ isOpen, onClose, onSa
     };
 
     onSave(newRemocao);
+  };
+
+  const handleCancelRemoval = () => {
+    if (initialData && onCancel) {
+      if (window.confirm("Tem certeza que deseja cancelar este atendimento? O status será alterado para 'Cancelada'.")) {
+        onCancel(initialData.id);
+      }
+    }
   };
 
   return (
@@ -370,22 +379,36 @@ const NewRemovalModal: React.FC<NewRemovalModalProps> = ({ isOpen, onClose, onSa
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-          <button 
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 text-slate-600 hover:text-slate-800 font-medium hover:bg-slate-200 rounded-lg transition-colors"
-          >
-            Cancelar
-          </button>
-          <button 
-            form="new-removal-form"
-            type="submit"
-            className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md shadow-indigo-200 transition-colors flex items-center gap-2"
-          >
-            <Save className="w-4 h-4" />
-            Salvar Registro
-          </button>
+        <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-between items-center gap-3">
+          <div>
+            {initialData && onCancel && (
+              <button 
+                type="button"
+                onClick={handleCancelRemoval}
+                className="px-4 py-2 text-red-600 hover:text-red-800 font-medium hover:bg-red-50 rounded-lg transition-colors flex items-center gap-2"
+              >
+                <Trash2 className="w-4 h-4" />
+                Cancelar Atendimento
+              </button>
+            )}
+          </div>
+          <div className="flex gap-3">
+            <button 
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-slate-600 hover:text-slate-800 font-medium hover:bg-slate-200 rounded-lg transition-colors"
+            >
+              Fechar
+            </button>
+            <button 
+              form="new-removal-form"
+              type="submit"
+              className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md shadow-indigo-200 transition-colors flex items-center gap-2"
+            >
+              <Save className="w-4 h-4" />
+              Salvar Registro
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -393,3 +416,4 @@ const NewRemovalModal: React.FC<NewRemovalModalProps> = ({ isOpen, onClose, onSa
 };
 
 export default NewRemovalModal;
+    
